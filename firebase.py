@@ -3,10 +3,15 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import uuid
 import os
+import json
 
 firebase_credentials = os.getenv('FIREBASE_CREDENTIALS')
-creds = firebase_credentials if firebase_credentials else "./catalogo.json"
-app = firebase_admin.initialize_app(credentials.Certificate(creds))
+if firebase_credentials:
+    with open("default.json", "w") as write_file:
+            json.dump(firebase_credentials, write_file)
+else:
+    firebase_credentials = "default.json"
+app = firebase_admin.initialize_app(credentials.Certificate(firebase_credentials))
 
 
 class FirebaseDatabase:
