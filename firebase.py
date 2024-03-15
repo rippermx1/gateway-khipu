@@ -2,10 +2,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import uuid
+import os
 
-
-app = firebase_admin.initialize_app(
-    credentials.Certificate("./catalogo-firebase.json"))
+firebase_credentials = os.getenv('FIREBASE_CREDENTIALS')
+creds = firebase_credentials if firebase_credentials else "./catalogo.json"
+app = firebase_admin.initialize_app(credentials.Certificate(creds))
 
 
 class FirebaseDatabase:
