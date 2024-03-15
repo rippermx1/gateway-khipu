@@ -5,14 +5,9 @@ import uuid
 import os
 import json
 
-path = "./default.json"
 firebase_credentials = os.getenv('FIREBASE_CREDENTIALS')
-print(firebase_credentials)
-
-if firebase_credentials:
-    with open("default.json", "w") as write_file:
-            json.dump(firebase_credentials, write_file)
-app = firebase_admin.initialize_app(credentials.Certificate(path))
+cert = json.loads(firebase_credentials) if firebase_credentials else './default.json'
+app = firebase_admin.initialize_app(credentials.Certificate(cert))
 
 
 class FirebaseDatabase:
